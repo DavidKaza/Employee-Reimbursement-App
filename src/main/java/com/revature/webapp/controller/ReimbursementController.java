@@ -1,5 +1,6 @@
 package com.revature.webapp.controller;
 
+import com.revature.webapp.exceptions.InvalidIDException;
 import com.revature.webapp.model.Reimbursement;
 import com.revature.webapp.model.User;
 import com.revature.webapp.service.ReimbursementService;
@@ -31,29 +32,66 @@ public class ReimbursementController {
                 ctx.result("You must be logged in to submit a ticket.");
             }
         });
-        app.get("/reimbursementTickets", (ctx)->{
+        app.get("/reimbursementTickets/{filter}", (ctx)->{
             HttpSession httpSession = ctx.req.getSession();
             User user = (User) httpSession.getAttribute("user");
             if(user != null){
                 if(user.getRoleId() == 2){
-                    try{
-                        List<Reimbursement> tickets = rs.getAllTickets();
-                        ctx.json(tickets);
-                        ctx.status(200);
-                    }catch(Exception e){
-                        ctx.result(e.getMessage());
-                    }
-                }else if(user.getRoleId() == 1){
-                    try{
-                        List<Reimbursement> tickets = rs.getTicketsForUser(user.getId());
-                        if(tickets.size() == 0){
-                            ctx.result("You have not submitted any tickets.");
-                        }else {
+                    if(ctx.pathParam("filter").equals("all")){
+                        try{
+                            List<Reimbursement> tickets = rs.getAllTickets();
+                            if(tickets.size() == 0){
+                                ctx.result("No reimbursement tickets.");
+                                ctx.status(404);
+                            }
                             ctx.json(tickets);
                             ctx.status(200);
+                        }catch(Exception e){
+                            ctx.result(e.getMessage());
                         }
-                    }catch(Exception e){
-                        ctx.result(e.getMessage());
+                    }else if(ctx.pathParam("filter").equals("pending")){
+                        try{
+                            List<Reimbursement> tickets = rs.getPendingTickets();
+                            ctx.json(tickets);
+                            ctx.status(200);
+                        }catch(Exception e){
+                            ctx.result(e.getMessage());
+                        }
+                    }else{
+                        try{
+                          List<Reimbursement> tickets = rs.getTicketsForUser(ctx.pathParam("filter"));
+                          ctx.json(tickets);
+                          ctx.status(200);
+                        }catch(Exception e){
+                            ctx.result(e.getMessage());
+                        }
+                    }
+                }else if(user.getRoleId() == 1){
+                    if(ctx.pathParam("filter").equals("all")){
+                        try{
+                            List<Reimbursement> tickets = rs.getTicketsForUser(user.getId());
+                            if(tickets.size() == 0){
+                                ctx.result("You have not submitted any tickets.");
+                            }else {
+                                ctx.json(tickets);
+                                ctx.status(200);
+                            }
+                        }catch(Exception e){
+                            ctx.result(e.getMessage());
+                        }
+                    }
+                    if(ctx.pathParam("filter").equals("pending")){
+                        try{
+                            List<Reimbursement> tickets = rs.getPendingTicketsForUser(user.getId());
+                            if(tickets.size() == 0){
+                                ctx.result("You have not submitted any tickets.");
+                            }else {
+                                ctx.json(tickets);
+                                ctx.status(200);
+                            }
+                        }catch(Exception e){
+                            ctx.result(e.getMessage());
+                        }
                     }
                 }
                 else{
@@ -81,6 +119,10 @@ public class ReimbursementController {
                             Reimbursement ticket = rs.manageReimbursement(ticketID, decision, managerId);
                             ctx.json(ticket);
                         }catch(NumberFormatException e){
+                            ctx.result(e.getMessage());
+                        }catch(InvalidIDException e){
+                            ctx.result(e.getMessage());
+                        }catch(Exception e){
                             ctx.result(e.getMessage());
                         }
                     }else{
@@ -110,6 +152,8 @@ public class ReimbursementController {
                             ctx.json(ticket);
                         }catch(NumberFormatException e){
                             ctx.result(e.getMessage());
+                        }catch(Exception e){
+                            ctx.result(e.getMessage());
                         }
                     }else{
                         ctx.result("Missing ticket ID and approval decision");
@@ -120,6 +164,31 @@ public class ReimbursementController {
 
             }else{
                 ctx.result("You are not logged in!");
+            }
+        });
+        app.get("/reimbursementTicket/{ticketID}", (ctx)->{
+            HttpSession httpSession = ctx.req.getSession();
+            User user = (User) httpSession.getAttribute("user");
+            if(user != null){
+                if(user.getRoleId() == 2){
+                    try{
+                        rs.getTicket(Integer.parseInt(ctx.pathParam("ticketID")));
+                    }catch(InvalidIDException e){
+                        ctx.result(e.getMessage());
+                    }catch(Exception e){
+                        ctx.result(e.getMessage());
+                    }
+                }else{
+                    try{
+                        rs.getUserTicket(Integer.parseInt(ctx.pathParam("ticketID")), user.getId());
+                    }catch(InvalidIDException e){
+                        ctx.result(e.getMessage());
+                    }catch(Exception e){
+                        ctx.result(e.getMessage());
+                    }
+                }
+            }else{
+                ctx.result("You must be logged in to view tickets.");
             }
         });
     }

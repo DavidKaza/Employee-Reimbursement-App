@@ -5,7 +5,7 @@ import com.revature.webapp.model.User;
 import java.sql.*;
 
 public class UserRepository {
-    public User addUser(User user) throws SQLException{
+    public User addUser(User user) throws SQLException {
         try(Connection connectionObject = ConnectionFactory.createConnection()){
             String sql = "insert into project1.users(username, password, firstname, lastname, role_id) values (?,?,?,?,?)";
             PreparedStatement pstmt = connectionObject.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
