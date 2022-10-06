@@ -1,6 +1,5 @@
 package com.revature.webapp.controller;
 
-import com.revature.webapp.exceptions.InvalidIDException;
 import com.revature.webapp.model.Reimbursement;
 import com.revature.webapp.model.User;
 import com.revature.webapp.service.ReimbursementService;
@@ -118,11 +117,7 @@ public class ReimbursementController {
                             int managerId = user.getId();
                             Reimbursement ticket = rs.manageReimbursement(ticketID, decision, managerId);
                             ctx.json(ticket);
-                        }catch(NumberFormatException e){
-                            ctx.result(e.getMessage());
-                        }catch(InvalidIDException e){
-                            ctx.result(e.getMessage());
-                        }catch(Exception e){
+                        } catch(Exception e){
                             ctx.result(e.getMessage());
                         }
                     }else{
@@ -150,9 +145,7 @@ public class ReimbursementController {
                             int managerId = user.getId();
                             Reimbursement ticket = rs.manageReimbursement(ticketID, decision, managerId);
                             ctx.json(ticket);
-                        }catch(NumberFormatException e){
-                            ctx.result(e.getMessage());
-                        }catch(Exception e){
+                        } catch(Exception e){
                             ctx.result(e.getMessage());
                         }
                     }else{
@@ -172,18 +165,16 @@ public class ReimbursementController {
             if(user != null){
                 if(user.getRoleId() == 2){
                     try{
-                        rs.getTicket(Integer.parseInt(ctx.pathParam("ticketID")));
-                    }catch(InvalidIDException e){
-                        ctx.result(e.getMessage());
-                    }catch(Exception e){
+                        Reimbursement ticket = rs.getTicket(Integer.parseInt(ctx.pathParam("ticketID")));
+                        ctx.json(ticket);
+                    } catch(Exception e){
                         ctx.result(e.getMessage());
                     }
                 }else{
                     try{
-                        rs.getUserTicket(Integer.parseInt(ctx.pathParam("ticketID")), user.getId());
-                    }catch(InvalidIDException e){
-                        ctx.result(e.getMessage());
-                    }catch(Exception e){
+                        Reimbursement ticket = rs.getUserTicket(Integer.parseInt(ctx.pathParam("ticketID")), user.getId());
+                        ctx.json(ticket);
+                    } catch(Exception e){
                         ctx.result(e.getMessage());
                     }
                 }

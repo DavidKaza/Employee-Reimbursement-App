@@ -23,12 +23,13 @@ public class AuthServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
     @InjectMocks
     private AuthService as;
 
 
     @Test
-    public void testAuthLoginUserNotRegistered() throws SQLException, InvalidLoginException {
+    public void testAuthLoginUserNotRegisteredOrWrongPassword() throws SQLException, InvalidLoginException {
         //Arrange
         //Mocking a response from userRepository
         when(userRepository.getUserByUsernameAndPassword(eq("Joe"), eq("Shmoe"))).thenReturn(null);
@@ -54,7 +55,12 @@ public class AuthServiceTest {
             as.register(new User("John", "password", "John", "Doe"));
         });
     }
-
+    @Test
+    public void testRegisterMissingFields() throws SQLException {
+        Assertions.assertThrows(MissingRequiredFieldException.class, ()-> {
+            as.register(new User("John", "", "John", "Doe"));
+        });
+    }
     @Test
     public void testRegisterPositive() throws SQLException, ExistingUserException, MissingRequiredFieldException {
         when(userRepository.getUserInfo("Randy")).thenReturn(null);

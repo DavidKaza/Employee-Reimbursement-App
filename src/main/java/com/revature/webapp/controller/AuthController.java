@@ -1,7 +1,4 @@
 package com.revature.webapp.controller;
-
-import com.revature.webapp.exceptions.ExistingUserException;
-import com.revature.webapp.exceptions.MissingRequiredFieldException;
 import com.revature.webapp.model.User;
 import com.revature.webapp.service.AuthService;
 import io.javalin.Javalin;
@@ -38,8 +35,6 @@ public void mapEndpoints(Javalin app){
        ctx.req.getSession().invalidate();
        ctx.result("Logged out.");
     });
-    app.get("/", (ctx)->{
-        ctx.result("Start here");
-    });
+    app.get("/", (ctx)-> ctx.result("Start here"));
 }
 }

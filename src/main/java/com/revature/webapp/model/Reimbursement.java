@@ -36,6 +36,11 @@ public class Reimbursement {
         this.timestamp = timestamp;
     }
 
+    public Reimbursement(int amount, String reason) {
+        this.amount = amount;
+        this.reason = reason;
+    }
+
     public int getId() {
         return id;
     }

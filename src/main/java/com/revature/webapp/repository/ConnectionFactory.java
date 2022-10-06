@@ -16,7 +16,6 @@ public class ConnectionFactory {
         String username = "postgres";
         String password = "password";
 
-        Connection connectionObject = DriverManager.getConnection(url, username, password);
-        return connectionObject;
+        return DriverManager.getConnection(url, username, password);
     }
 }

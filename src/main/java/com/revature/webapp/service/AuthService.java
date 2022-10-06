@@ -7,10 +7,9 @@ import com.revature.webapp.model.User;
 import com.revature.webapp.repository.UserRepository;
 
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 
 public class AuthService {
-    private final UserRepository userRepo = new UserRepository();
+    private UserRepository userRepo = new UserRepository();
 
     public User register(User user) throws ExistingUserException, MissingRequiredFieldException, SQLException {
         if(user.getPassword().isEmpty() | user.getUsername().isEmpty() | user.getFirstName().isEmpty() | user.getLastName().isEmpty()){

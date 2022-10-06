@@ -154,8 +154,8 @@ public class ReimbursementRepository {
                 int managerId = rs.getInt("manager_id");
                 String submitDate = rs.getString("submit_date");
                 String decisionDate = rs.getString("decision_date");
-                Reimbursement ticket = new Reimbursement(id, amount, status, reason, employeeId, managerId, submitDate, decisionDate);
-                return ticket;
+                return new Reimbursement(id, amount, status, reason, employeeId, managerId, submitDate, decisionDate);
+
             }else{
                 return null;
             }
@@ -177,8 +177,8 @@ public class ReimbursementRepository {
                 int managerId = rs.getInt("manager_id");
                 String submitDate = rs.getString("submit_date");
                 String decisionDate = rs.getString("decision_date");
-                Reimbursement ticket = new Reimbursement(id, amount, status, reason, employeeId, managerId, submitDate, decisionDate);
-                return ticket;
+                return new Reimbursement(id, amount, status, reason, employeeId, managerId, submitDate, decisionDate);
+
             }else{
                 return null;
             }
@@ -205,8 +205,7 @@ public class ReimbursementRepository {
                 int manager = rs.getInt("manager_id");
                 String submitDate = rs.getString("submit_date");
                 String decisionDate = rs.getString("decision_date");
-                Reimbursement ticket = new Reimbursement(ticketId, amount, status, reason, employeeId, manager, submitDate, decisionDate);
-                return ticket;
+                return new Reimbursement(ticketId, amount, status, reason, employeeId, manager, submitDate, decisionDate);
             }else{
                 return null;
             }
