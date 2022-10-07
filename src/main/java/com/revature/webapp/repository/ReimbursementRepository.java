@@ -13,7 +13,7 @@ public class ReimbursementRepository {
             String sql = "insert into project1.reimbursements (amount, reason, employee_id) values (?, ?, ?)";
             PreparedStatement pstmt = connectionObject.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            pstmt.setInt(1, ticket.getAmount());
+            pstmt.setDouble(1, ticket.getAmount());
             pstmt.setString(2, ticket.getReason());
             pstmt.setInt(3, ticket.getEmployeeId());
 
@@ -37,7 +37,7 @@ public class ReimbursementRepository {
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 int id = rs.getInt("reimbursement_id");
-                int amount = rs.getInt("amount");
+                double amount = rs.getDouble("amount");
                 String status = rs.getString("status");
                 String reason = rs.getString("reason");
                 int employeeId = rs.getInt("employee_id");
@@ -59,7 +59,7 @@ public class ReimbursementRepository {
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 int id = rs.getInt("reimbursement_id");
-                int amount = rs.getInt("amount");
+                double amount = rs.getDouble("amount");
                 String status = rs.getString("status");
                 String reason = rs.getString("reason");
                 int employeeId = rs.getInt("employee_id");
@@ -82,7 +82,7 @@ public class ReimbursementRepository {
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
                 int id = rs.getInt("reimbursement_id");
-                int amount = rs.getInt("amount");
+                double amount = rs.getDouble("amount");
                 String status = rs.getString("status");
                 String reason = rs.getString("reason");
                 int employeeId = rs.getInt("employee_id");
@@ -104,7 +104,7 @@ public class ReimbursementRepository {
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
                 int id = rs.getInt("reimbursement_id");
-                int amount = rs.getInt("amount");
+                double amount = rs.getDouble("amount");
                 String status = rs.getString("status");
                 String reason = rs.getString("reason");
                 int employeeId = rs.getInt("employee_id");
@@ -126,7 +126,7 @@ public class ReimbursementRepository {
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
                 int id = rs.getInt("reimbursement_id");
-                int amount = rs.getInt("amount");
+                double amount = rs.getDouble("amount");
                 String status = rs.getString("status");
                 String reason = rs.getString("reason");
                 int employeeId = rs.getInt("employee_id");
@@ -147,7 +147,7 @@ public class ReimbursementRepository {
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()){
                 int id = rs.getInt("reimbursement_id");
-                int amount = rs.getInt("amount");
+                double amount = rs.getDouble("amount");
                 String status = rs.getString("status");
                 String reason = rs.getString("reason");
                 int employeeId = rs.getInt("employee_id");
@@ -170,7 +170,7 @@ public class ReimbursementRepository {
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()){
                 int id = rs.getInt("reimbursement_id");
-                int amount = rs.getInt("amount");
+                double amount = rs.getDouble("amount");
                 String status = rs.getString("status");
                 String reason = rs.getString("reason");
                 int employeeId = rs.getInt("employee_id");
@@ -198,9 +198,9 @@ public class ReimbursementRepository {
 
             if(rs.next()){
                 int ticketId = rs.getInt(1);
-                int amount = rs.getInt(2);
+                double amount = rs.getDouble(2);
                 String status = rs.getString(3);
-                String reason = rs.getString(4);
+                String reason = rs.getString("reason");
                 int employeeId = rs.getInt("employee_id");
                 int manager = rs.getInt("manager_id");
                 String submitDate = rs.getString("submit_date");

@@ -21,7 +21,7 @@ public class ReimbursementController {
                 ticket.setEmployeeId(user.getId());
                 try{
                     Reimbursement newTicket = rs.createTicket(ticket);
-                    ctx.result("New ticket submitted.\n"+ "Amount: "+
+                    ctx.result("New ticket submitted.\n"+ "Ticket ID: "+ newTicket.getId() + "\n" + "Amount: "+
                             newTicket.getAmount() + "\nReason: "+
                             newTicket.getReason() + "\nStatus: " + newTicket.getStatus());
                 }catch(Exception e){
@@ -83,7 +83,7 @@ public class ReimbursementController {
                         try{
                             List<Reimbursement> tickets = rs.getPendingTicketsForUser(user.getId());
                             if(tickets.size() == 0){
-                                ctx.result("You have not submitted any tickets.");
+                                ctx.result("You have no pending tickets.");
                             }else {
                                 ctx.json(tickets);
                                 ctx.status(200);

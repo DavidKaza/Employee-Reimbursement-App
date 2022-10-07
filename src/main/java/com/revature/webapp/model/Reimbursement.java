@@ -4,8 +4,10 @@ import java.util.Objects;
 
 public class Reimbursement {
     private int id;
-    private int amount;
+    private double amount;
     private String status;
+
+    private String category;
     private String reason;
     private int employeeId;
     private int managerId;
@@ -16,7 +18,19 @@ public class Reimbursement {
 
     public Reimbursement(){}
 
-    public Reimbursement(int id, int amount, String status, String reason, int employeeId, int managerId, String timestamp, String decisionDate) {
+    public Reimbursement(int id, double amount, String status, String category, String reason, int employeeId, int managerId, String timestamp, String decisionDate) {
+        this.id = id;
+        this.amount = amount;
+        this.status = status;
+        this.category = category;
+        this.reason = reason;
+        this.employeeId = employeeId;
+        this.managerId = managerId;
+        this.timestamp = timestamp;
+        this.decisionDate = decisionDate;
+    }
+
+    public Reimbursement(int id, double amount, String status, String reason, int employeeId, int managerId, String timestamp, String decisionDate) {
         this.id = id;
         this.amount = amount;
         this.status = status;
@@ -27,7 +41,7 @@ public class Reimbursement {
         this.decisionDate = decisionDate;
     }
 
-    public Reimbursement(int id, int amount, String status, String reason, int employeeId, String timestamp) {
+    public Reimbursement(int id, double amount, String status, String reason, int employeeId, String timestamp) {
         this.id = id;
         this.amount = amount;
         this.status = status;
@@ -36,9 +50,17 @@ public class Reimbursement {
         this.timestamp = timestamp;
     }
 
-    public Reimbursement(int amount, String reason) {
+    public Reimbursement(double amount, String reason) {
         this.amount = amount;
         this.reason = reason;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public int getId() {
@@ -49,11 +71,11 @@ public class Reimbursement {
         this.id = id;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -110,12 +132,12 @@ public class Reimbursement {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Reimbursement that = (Reimbursement) o;
-        return id == that.id && amount == that.amount && employeeId == that.employeeId && managerId == that.managerId && Objects.equals(status, that.status) && Objects.equals(reason, that.reason) && Objects.equals(timestamp, that.timestamp) && Objects.equals(decisionDate, that.decisionDate);
+        return id == that.id && amount == that.amount && employeeId == that.employeeId && managerId == that.managerId && Objects.equals(status, that.status) && Objects.equals(category, that.category) && Objects.equals(reason, that.reason) && Objects.equals(timestamp, that.timestamp) && Objects.equals(decisionDate, that.decisionDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amount, status, reason, employeeId, managerId, timestamp, decisionDate);
+        return Objects.hash(id, amount, status, category, reason, employeeId, managerId, timestamp, decisionDate);
     }
 
     @Override
@@ -124,6 +146,7 @@ public class Reimbursement {
                 "id=" + id +
                 ", amount=" + amount +
                 ", status='" + status + '\'' +
+                ", category='" + category + '\'' +
                 ", reason='" + reason + '\'' +
                 ", employeeId=" + employeeId +
                 ", managerId=" + managerId +
