@@ -1,11 +1,10 @@
 package com.revature.service;
 
-import com.revature.webapp.exceptions.AlreadyDeniedOrApprovedException;
-import com.revature.webapp.exceptions.InvalidIDException;
-import com.revature.webapp.exceptions.MissingRequiredFieldException;
-import com.revature.webapp.model.Reimbursement;
-import com.revature.webapp.repository.ReimbursementRepository;
-import com.revature.webapp.service.ReimbursementService;
+import com.revature.exceptions.AlreadyDeniedOrApprovedException;
+import com.revature.exceptions.InvalidIDException;
+import com.revature.exceptions.MissingRequiredFieldException;
+import com.revature.exceptions.model.Reimbursement;
+import com.revature.repository.ReimbursementRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

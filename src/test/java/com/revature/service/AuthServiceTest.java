@@ -1,11 +1,10 @@
 package com.revature.service;
 
-import com.revature.webapp.exceptions.ExistingUserException;
-import com.revature.webapp.exceptions.MissingRequiredFieldException;
-import com.revature.webapp.model.User;
-import com.revature.webapp.repository.UserRepository;
-import com.revature.webapp.exceptions.InvalidLoginException;
-import com.revature.webapp.service.AuthService;
+import com.revature.exceptions.ExistingUserException;
+import com.revature.exceptions.MissingRequiredFieldException;
+import com.revature.exceptions.model.User;
+import com.revature.repository.UserRepository;
+import com.revature.exceptions.InvalidLoginException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
